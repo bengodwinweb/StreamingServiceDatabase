@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head :: head"/>
+<body>
+<div th:insert="fragments/header :: header"/>
+
+
+<div class="m-2">
+    <h2>Movies</h2>
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Genre</th>
+                <th>Release Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${movies.empty}">
+                <td colspan="3">No shows found</td>
+            </tr>
+            <tr th:each="show : ${movies}">
+                <td><a th:text="${show.getName()}" th:href="@{'/movie?id=' + ${show.getId()}}"> Name </a></td>
+                <td><span th:text="${show.getGenre()}"> Genre </span></td>
+                <td><span th:text="${show.getReleaseDate()}"> Release Date </span></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<div th:insert="fragments/scripts :: scripts"/>
+</body>
+</html>

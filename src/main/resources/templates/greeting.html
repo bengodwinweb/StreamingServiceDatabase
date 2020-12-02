@@ -1,0 +1,11 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head :: head"/>
+<body>
+<div th:insert="fragments/header :: header"/>
+<p class="text-danger" th:text="'Hello, ' + ${name} + '!'"/>
+
+<div th:insert="fragments/scripts :: scripts"/>
+
+</body>
+</html>
