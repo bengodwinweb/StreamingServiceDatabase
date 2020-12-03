@@ -6,16 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="StreamingServiceDatabase" />
         <module name="streaming-service-backend" />
         <module name="StreamingServiceDatabase-master" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="StreamingServiceDatabase" target="14" />
       <module name="StreamingServiceDatabase-master" target="14" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="StreamingServiceDatabase" options="-parameters" />
       <module name="StreamingServiceDatabase-master" options="-parameters" />
       <module name="streaming-service-backend" options="-parameters" />
     </option>

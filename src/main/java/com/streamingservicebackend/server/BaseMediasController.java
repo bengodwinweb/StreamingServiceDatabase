@@ -6,6 +6,7 @@ import com.streamingservicebackend.model.Dao;
 import com.streamingservicebackend.model.movie.MovieDAO;
 import com.streamingservicebackend.model.person.PersonDAO;
 import com.streamingservicebackend.model.show.ShowDAO;
+import com.streamingservicebackend.model.streamingservice.StreamingServiceDAO;
 import com.streamingservicebackend.model.streamingserviceconnection.StreamingServiceConnectionDao;
 import com.streamingservicebackend.util.StringUtil;
 
@@ -18,12 +19,14 @@ public class BaseMediasController<T extends BaseMedia> {
     private final ISqlHandler _sqlHandler;
     private final PersonDAO personDAO;
     private final StreamingServiceConnectionDao connectionDao;
+    protected final StreamingServiceDAO serviceDAO;
 
     public BaseMediasController(Dao<T> dao, ISqlHandler sqlHandler) {
         this.dao = dao;
         this._sqlHandler = sqlHandler;
         this.personDAO = new PersonDAO(sqlHandler);
         this.connectionDao = new StreamingServiceConnectionDao(sqlHandler);
+        this.serviceDAO = new StreamingServiceDAO(sqlHandler);
     }
 
     public List<BaseMedia> get(Optional<List<String>> serviceId, Optional<String> personId, Optional<String> genre, Optional<String> text) {
