@@ -50,8 +50,10 @@
             <b>Total Number of Episodes: </b>
             <span th:text="${show.getMedia().getNumEpisodes()}"/>
         </div>
-        <p class="lead">
-            <a class="btn btn-danger btn-md mt-2" href="#" role="button">Watch on Netflix</a>
+        <p class="lead my-3">
+            <label class="">Available On</label>
+            <a class="btn btn-outline-primary m-2" th:each="service : ${show.getStreamingServices()}" th:href="@{'/service?id=' + ${service.getId()}}" th:text="${service.getServiceName()}">Service</a>
+<!--            <button class="btn btn-outline-primary m-2" th:each="service : ${show.getStreamingServices()}" th:text="${service.getServiceName()}">Service</button>-->
         </p>
     </div>
 
