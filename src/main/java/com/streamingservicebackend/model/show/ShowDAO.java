@@ -124,16 +124,16 @@ public class ShowDAO implements Dao<Show> {
 
     public List<Show> getMinEpisodes() {
         String query = "SELECT * FROM " + DatabaseHandler.TABLE_SHOW + " WHERE " +
-                        DatabaseHandler.COLUMN_SHOW_NUM_SEASONS + " * " + DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
-                        " = (SELECT MIN(" + DatabaseHandler.COLUMN_SHOW_NUM_SEASONS + " * " + DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
+                        DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
+                        " = (SELECT MIN(" + DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
                         ") FROM " + DatabaseHandler.TABLE_SHOW + ")";
         return getListFromQuery(query);
     }
 
     public List<Show> getMaxEpisodes() {
         String query = "SELECT * FROM " + DatabaseHandler.TABLE_SHOW + " WHERE " +
-                DatabaseHandler.COLUMN_SHOW_NUM_SEASONS + " * " + DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
-                " = (SELECT MAX(" + DatabaseHandler.COLUMN_SHOW_NUM_SEASONS + " * " + DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
+                DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
+                " = (SELECT MAX(" + DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
                 ") FROM " + DatabaseHandler.TABLE_SHOW + ")";
         return getListFromQuery(query);
     }

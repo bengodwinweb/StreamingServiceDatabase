@@ -56,7 +56,7 @@ class ShowDAOTest {
         if (list.size() == 0) {
             System.out.println("No shows in db");
         } else {
-            System.out.printf("Smallest number of total episodes = %,d\n", list.get(0).getNumEpisodes() * list.get(0).getNumSeasons());
+            System.out.printf("Smallest number of total episodes = %,d\n", list.get(0).getNumEpisodes());
             for (var show : list) {
                 System.out.println(show.toString());
             }
@@ -69,7 +69,7 @@ class ShowDAOTest {
         if (list.size() == 0) {
             System.out.println("No shows in db");
         } else {
-            System.out.printf("Largest number of total episodes = %,d\n", list.get(0).getNumEpisodes() * list.get(0).getNumSeasons());
+            System.out.printf("Largest number of total episodes = %,d\n", list.get(0).getNumEpisodes());
             for (var show : list) {
                 System.out.println(show.toString());
             }
