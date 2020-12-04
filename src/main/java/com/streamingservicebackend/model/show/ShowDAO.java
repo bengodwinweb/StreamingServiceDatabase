@@ -100,15 +100,15 @@ public class ShowDAO implements Dao<Show> {
 
         String template =
                 "UPDATE " + DatabaseHandler.TABLE_SHOW + " SET " +
-                        DatabaseHandler.COLUMN_SHOW_NAME + " = '%s' SET " +
-                        DatabaseHandler.COLUMN_SHOW_DESCRIPTION + " = '%s' SET " +
-                        DatabaseHandler.COLUMN_SHOW_DATE + " = '%s' SET " +
-                        DatabaseHandler.COLUMN_SHOW_GENRE + " = '%s' SET " +
-                        DatabaseHandler.COLUMN_SHOW_NUM_SEASONS + " = %d SET " +
+                        DatabaseHandler.COLUMN_SHOW_NAME + " = '%s', " +
+                        DatabaseHandler.COLUMN_SHOW_DESCRIPTION + " = '%s', " +
+                        DatabaseHandler.COLUMN_SHOW_DATE + " = '%s', " +
+                        DatabaseHandler.COLUMN_SHOW_GENRE + " = '%s', " +
+                        DatabaseHandler.COLUMN_SHOW_NUM_SEASONS + " = %d, " +
                         DatabaseHandler.COLUMN_SHOW_NUM_EPISODES + " = %d WHERE " +
                         DatabaseHandler.COLUMN_SHOW_ID + " = '%s'";
 
-        String sql = String.format(template, show.getName(), show.getDescription(), _sqlHandler.formatDateString(show.getReleaseDate()), show.getGenre(), show.getNumSeasons(), show.getNumEpisodes());
+        String sql = String.format(template, show.getName(), show.getDescription(), _sqlHandler.formatDateString(show.getReleaseDate()), show.getGenre(), show.getNumSeasons(), show.getNumEpisodes(), show.getId());
         return _sqlHandler.executeSql(sql);
     }
 
@@ -120,6 +120,22 @@ public class ShowDAO implements Dao<Show> {
 
         String sql = "DELETE FROM " + DatabaseHandler.TABLE_SHOW + " WHERE " + DatabaseHandler.COLUMN_SHOW_ID + " = '" + show.getId() + "'";
         return _sqlHandler.executeSql(sql);
+    }
+
+    public List<Show> getMinEpisodes() {
+        String query = "SELECT * FROM " + DatabaseHandler.TABLE_SHOW + " WHERE " +
+                        DatabaseHandler.COLUMN_SHOW_NUM_SEASONS + " * " + DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
+                        " = (SELECT MIN(" + DatabaseHandler.COLUMN_SHOW_NUM_SEASONS + " * " + DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
+                        ") FROM " + DatabaseHandler.TABLE_SHOW + ")";
+        return getListFromQuery(query);
+    }
+
+    public List<Show> getMaxEpisodes() {
+        String query = "SELECT * FROM " + DatabaseHandler.TABLE_SHOW + " WHERE " +
+                DatabaseHandler.COLUMN_SHOW_NUM_SEASONS + " * " + DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
+                " = (SELECT MAX(" + DatabaseHandler.COLUMN_SHOW_NUM_SEASONS + " * " + DatabaseHandler.COLUMN_SHOW_NUM_EPISODES +
+                ") FROM " + DatabaseHandler.TABLE_SHOW + ")";
+        return getListFromQuery(query);
     }
 
     /**

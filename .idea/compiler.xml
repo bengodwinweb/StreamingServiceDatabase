@@ -12,6 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="streaming-service-backend" target="14" />
       <module name="StreamingServiceDatabase" target="14" />
       <module name="StreamingServiceDatabase-master" target="14" />
     </bytecodeTargetLevel>
