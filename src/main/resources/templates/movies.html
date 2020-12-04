@@ -7,10 +7,10 @@
 
 <div>
     <h2 class="ml-3">Movies</h2>
+    <div th:insert="fragments/filter :: filter"/>
     <div th:if="${movies.empty}">
         <h3>No movies found</h3>
     </div>
-
     <div class="row mx-2">
         <div th:each="show, iStat : ${movies}" class="col-4">
             <div class="card mb-3 shadow-sm" th:style="@{'&#45;&#45;animation-order:' + ${iStat.count}}">

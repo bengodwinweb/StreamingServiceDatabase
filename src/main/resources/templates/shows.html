@@ -6,6 +6,7 @@
 
 <div>
     <h2 id="title" class="ml-3">Shows</h2>
+    <div th:insert="fragments/filter :: filter"/>
     <div th:if="${shows.empty}">
         <h3>No shows found</h3>
     </div>
