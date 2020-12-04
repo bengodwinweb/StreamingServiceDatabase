@@ -1,15 +1,15 @@
 package com.streamingservicebackend.model;
 
 public enum Genre {
-    NONE(0, "", null),
-    DRAMA(1, "Drama", "drama"),
+    NONE(0, "Genre", null),
+    ACTION(1, "Action", "action"),
     COMEDY(2, "Comedy", "com"),
-    FANTASY(3, "Fantasy", "fantasy"),
-    ACTION(4, "Action", "action"),
-    DOCUMENTARY(5, "Documentary", "doc"),
-    THRILLER(6, "Thriller", "thriller"),
+    CRIME(3, "Crime", "crime"),
+    DOCUMENTARY(4, "Documentary", "doc"),
+    DRAMA(5, "Drama", "drama"),
+    FANTASY(6, "Fantasy", "fantasy"),
     SPORTS(7, "Sports", "sport"),
-    CRIME(8, "Crime", "crime");
+    THRILLER(8, "Thriller", "thriller");
 
     private final String displayText;
     private final String queryText;

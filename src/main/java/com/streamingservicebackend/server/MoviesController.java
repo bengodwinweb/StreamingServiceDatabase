@@ -30,9 +30,22 @@ public class MoviesController extends BaseMediasController<Movie> {
     @GetMapping("/movies")
     public String getMovies(@RequestParam Optional<List<String>> serviceId, @RequestParam Optional<String> personId, @RequestParam Optional<String> genre, @RequestParam Optional<String> text, Model model) {
         model.addAttribute("url", "movies");
-        model.addAttribute("genres", Arrays.stream(Genre.values()).sorted(Comparator.comparing(Genre::getDisplayText)).toArray(Genre[]::new));
+        model.addAttribute("genres", Genre.values());
         model.addAttribute("services", this.serviceDAO.getAll());
-        model.addAttribute("mediaFilterParams", new MediaFilterParams());
+
+        MediaFilterParams params = new MediaFilterParams();
+
+        String[] serviceIds;
+        if (serviceId.isPresent()) {
+            serviceIds = serviceId.get().toArray(new String[0]);
+        } else {
+            serviceIds = new String[0];
+        }
+
+        params.setServiceIds(serviceIds);
+        params.setGenre(genre.orElse(Genre.NONE.getDisplayText()));
+        params.setText(text.orElse(""));
+        model.addAttribute("mediaFilterParams", params);
 
         List<BaseMedia> media = get(serviceId, personId, genre, text);
         List<Movie> movies = media.stream().map(m -> (Movie)m).collect(Collectors.toList());

@@ -2,11 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/head :: head"/>
 <body style="background: #EAEDED;">
-<div th:insert="fragments/header :: header"/>
+
+<div id="nav">
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#serviceIds').multiselect({
+                includeSelectAllOption: true,
+                nonSelectedText: 'Services'
+            });
+        });
+    </script>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <a class="navbar-brand" href="/">Streams</a>
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/services">Services</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/shows">Shows</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/movies">Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/persons">People</a>
+                </li>
+            </ul>
+            <form class="d-inline" id="shows-filter-form" th:action="@{'/' + ${url} + '-filter'}" th:object="${mediaFilterParams}" method="post">
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-2">
+                        <select class="form-control bg-light" id="serviceIds" multiple="multiple" th:field="*{serviceIds}">
+                            <option th:each="service : ${services}"
+                                    th:value="${service.getId()}"
+                                    th:id="${service.getId()}"
+                                    th:text="${service.getName()}">Service</option>
+                        </select>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <select class="form-control bg-light" id="genre" th:field="*{genre}">
+                            <option th:each="genre : ${genres}"
+                                    th:value="${genre.getQueryText()}"
+                                    th:id="${genre.getId()}"
+                                    th:text="${genre.getDisplayText()}">Genre</option>
+                        </select>
+                    </li>
+                    <div class="d-inline mx-2 w-40">
+                        <input class="form-control" type="search" placeholder="Search" th:field="*{text}" id="search">
+                    </div>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:$('#shows-filter-form').submit();">Find</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{'/' + ${url}}" class="nav-link">Reset</a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </nav>
+</div>
 
 <div>
-    <h2 id="title" class="ml-3">Shows</h2>
-    <div th:insert="fragments/filter :: filter"/>
+    <h2 id="title" class="m-4 p-2">Shows</h2>
     <div th:if="${shows.empty}">
         <h3>No shows found</h3>
     </div>
