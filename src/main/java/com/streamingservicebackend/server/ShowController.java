@@ -1,16 +1,20 @@
 package com.streamingservicebackend.server;
 
 import com.streamingservicebackend.database.DatabaseHandler;
+import com.streamingservicebackend.model.BaseMedia;
 import com.streamingservicebackend.model.MediaInfo;
 import com.streamingservicebackend.model.show.Show;
 import com.streamingservicebackend.model.show.ShowDAO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/show")
@@ -24,9 +28,15 @@ public class ShowController extends BaseMediaController<Show> {
         super(new ShowDAO(db), db);
     }
 
+//    @GetMapping
+//    @ResponseBody
+//    public MediaInfo getInfo(@RequestParam Optional<String> id, @RequestParam Optional<String> name) {
+//        return this.get(id, name);
+//    }
+
     @GetMapping
-    @ResponseBody
-    public MediaInfo getInfo(@RequestParam Optional<String> id, @RequestParam Optional<String> name) {
-        return this.get(id, name);
+    public String getInfo(@RequestParam Optional<String> id, @RequestParam Optional<String> name, Model model) {
+        model.addAttribute("show",this.get(id, name));
+        return "show";
     }
 }

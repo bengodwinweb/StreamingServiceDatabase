@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head :: head"/>
+<body style="background: #EAEDED;">
+<div th:insert="fragments/header :: header"/>
+
+
+<div>
+    <h2 class="ml-3">Streaming Services</h2>
+    <div th:if="${services.empty}">
+        <h3>No movies found</h3>
+    </div>
+
+    <div class="row mx-2">
+        <div th:each="show, iStat : ${services}" class="col-3">
+            <div class="card mb-3 shadow-sm" th:style="@{'&#45;&#45;animation-order:' + ${iStat.count}}">
+                <div class="card-body">
+                    <h5 th:text="${show.getName()}" class="card-title"> Name </h5>
+                    <h6 th:text="@{'$' + ${show.getMonthlySubscriptionPrice()} + '/mo'}" class="card-subtitle mb-2 text-muted"> Subscription Price </h6>
+                    <p th:if="${show.getFreeTrialLength()} > 0" th:text="@{'Free Trial Length: ' + ${show.getFreeTrialLength()} + ' days'}" class="card-text" style="margin:0;"> Free trial </p>
+                    <p th:if="${show.getShowsAds()} == true" th:text="'Shows ads'" class="card-text" style="font-weight:bold; margin:0 0 2 0;"> Shows ads </p>
+                    <a th:href="@{'/shows?serviceId=' + ${show.getId()}}" class="card-link badge badge-info">Shows</a>
+                    <a th:href="@{'/movies?serviceId=' + ${show.getId()}}" class="card-link badge badge-info">Movies</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:insert="fragments/scripts :: scripts"/>
+</body>
+</html>
+

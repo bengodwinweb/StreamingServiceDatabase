@@ -1,36 +1,57 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/head :: head"/>
-<body>
+<body style="background: #EAEDED;">
 <div th:insert="fragments/header :: header"/>
 
 
-<div class="m-2">
-    <h2>Movies</h2>
+<div>
+    <h2 class="ml-3">Movies</h2>
+    <div th:if="${movies.empty}">
+        <h3>No movies found</h3>
+    </div>
 
-    <div>
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Genre</th>
-                <th>Release Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${movies.empty}">
-                <td colspan="3">No shows found</td>
-            </tr>
-            <tr th:each="show : ${movies}">
-                <td><a th:text="${show.getName()}" th:href="@{'/movie?id=' + ${show.getId()}}"> Name </a></td>
-                <td><span th:text="${show.getGenre()}"> Genre </span></td>
-                <td><span th:text="${show.getReleaseDate()}"> Release Date </span></td>
-            </tr>
-            </tbody>
-        </table>
-
+    <div class="row mx-2">
+        <div th:each="show, iStat : ${movies}" class="col-4">
+            <div class="card mb-3 shadow-sm" th:style="@{'&#45;&#45;animation-order:' + ${iStat.count}}">
+                <div class="card-body">
+                    <h5 th:text="${show.getName()}" class="card-title"> Name </h5>
+                    <h6 th:text="${show.getGenre()}" class="card-subtitle mb-2 text-muted"> Genre </h6>
+                    <p th:text="${show.getDescription()}" class="card-text"> Description </p>
+                    <h6><a th:href="@{'/movie?id=' + ${show.getId()}}" class="card-link badge badge-info">More info</a></h6>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+<!--<div class="m-2">-->
+<!--    <h2>Movies</h2>-->
+
+<!--    <div>-->
+<!--        <table>-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Name</th>-->
+<!--                <th>Genre</th>-->
+<!--                <th>Release Date</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:if="${movies.empty}">-->
+<!--                <td colspan="3">No shows found</td>-->
+<!--            </tr>-->
+<!--            <tr th:each="show : ${movies}">-->
+<!--                <td><a th:text="${show.getName()}" th:href="@{'/movie?id=' + ${show.getId()}}"> Name </a></td>-->
+<!--                <td><span th:text="${show.getGenre()}"> Genre </span></td>-->
+<!--                <td><span th:text="${show.getReleaseDate()}"> Release Date </span></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+
+<!--    </div>-->
+<!--</div>-->
 
 
 <div th:insert="fragments/scripts :: scripts"/>
