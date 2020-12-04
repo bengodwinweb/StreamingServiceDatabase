@@ -2,23 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/head :: head"/>
 <body style="background: #EAEDED;">
-<div th:insert="fragments/header :: header"/>
+
+<div id="nav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Streams</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/shows">Shows</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/movies">Movies</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/persons">People</a>
+                </li>
+            </ul>
+            <form class="d-inline" id="persons-filter-form" th:action="@{'/persons-filter'}" th:object="${personFilterParams}" method="post">
+                <ul class="navbar-nav">
+                    <div class="d-inline mx-2 w-40">
+                        <input class="form-control" type="search" placeholder="Search" th:field="*{search}" id="search">
+                    </div>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:$('#persons-filter-form').submit();">Filter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{'/persons'}" class="nav-link">Reset</a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </nav>
+</div>
 
 
 <div>
-    <h2 class="ml-3">Directors, Actors, and Actresses</h2>
+    <h2 class="m-4 p-2">Directors, Actors, and Actresses</h2>
     <div th:if="${persons.empty}">
         <h3>No actors/directors found</h3>
     </div>
 
     <div class="row mx-2">
-        <div th:each="show, iStat : ${persons}" class="col-3">
+        <div th:each="person, iStat : ${persons}" class="col-3">
             <div class="card mb-3 shadow-sm" th:style="@{'&#45;&#45;animation-order:' + ${iStat.count}}">
                 <div class="card-body">
-                    <h5 th:text="@{${show.getFirstName()} + ' ' + ${show.getLastName()}}" class="card-title"> Name </h5>
-                    <h6 th:text="${show.getStageName()}" class="card-subtitle mb-2 text-muted"> Stage Name </h6>
-                    <a th:href="@{'/shows?personId=' + ${show.getPersonId()}}" class="card-link badge badge-info">Shows</a>
-                    <a th:href="@{'/movies?personId=' + ${show.getPersonId()}}" class="card-link badge badge-info">Movies</a>
+                    <h5 th:text="${person.getStageName()}" class="card-title"> Name </h5>
+                    <h6 th:text="${person.fullName()}" class="card-subtitle mb-2 text-muted"> Stage Name </h6>
+                    <a th:href="@{'/shows?personId=' + ${person.getPersonId()}}" class="card-link badge badge-info">Shows</a>
+                    <a th:href="@{'/movies?personId=' + ${person.getPersonId()}}" class="card-link badge badge-info">Movies</a>
                 </div>
             </div>
         </div>

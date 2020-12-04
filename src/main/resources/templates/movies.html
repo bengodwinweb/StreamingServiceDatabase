@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/head :: head"/>
 <body style="background: #EAEDED;">
-<!--<div th:insert="fragments/header :: header"/>-->
 
 <div id="nav">
     <script type="text/javascript">
@@ -14,10 +13,7 @@
         });
     </script>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
         <a class="navbar-brand" href="/">Streams</a>
-
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -61,7 +57,7 @@
                     </div>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:$('#shows-filter-form').submit();">Find</a>
+                        <a class="nav-link" href="javascript:$('#shows-filter-form').submit();">Filter</a>
                     </li>
                     <li class="nav-item">
                         <a th:href="@{'/' + ${url}}" class="nav-link">Reset</a>

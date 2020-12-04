@@ -66,7 +66,7 @@ public class Person {
     }
 
     public String fullName() {
-        return String.format("%s %s %s", getFirstName(), getMiddleName(), getLastName());
+        return String.format("%s %s %s", getFirstName(), getMiddleName() != null && getMiddleName().length() > 0 ? getMiddleName() : '\b', getLastName());
     }
 
     @Override
