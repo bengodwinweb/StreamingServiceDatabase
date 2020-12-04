@@ -9,10 +9,7 @@ import com.streamingservicebackend.model.show.Show;
 import com.streamingservicebackend.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +17,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/persons")
 public class PersonsController {
 
     private final PersonDAO dao;
@@ -46,8 +42,12 @@ public class PersonsController {
 //        return list;
 //    }
 
-    @GetMapping
+    @GetMapping("/persons")
     public String get(@RequestParam Optional<String> mediaId, Optional<String> search, Model model) {
+        PersonFilterParams params = new PersonFilterParams();
+        params.setSearch(search.orElse(""));
+        model.addAttribute("personFilterParams", params);
+
         List<Person> list = mediaId.isPresent() ? dao.getAllFromMedia(mediaId.get()) : dao.getAll();
         if (search.isPresent()) {
             String[] queryStrings = StringUtil.normalizeStringForQuery(search.get()).split(" ");
@@ -56,6 +56,18 @@ public class PersonsController {
 
         model.addAttribute("persons", list);
         return "persons";
+    }
+
+    @PostMapping("/persons-filter")
+    public String handleFilterRequest(@ModelAttribute PersonFilterParams params) {
+        StringBuilder sb = new StringBuilder("persons");
+
+        if (params.getSearch() != null && params.getSearch().length() > 0) {
+            sb.append("?search=");
+            sb.append(params.getSearch());
+        }
+
+        return "redirect:/" + sb.toString();
     }
 
 }

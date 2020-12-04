@@ -2,7 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/head :: head"/>
 <body style="background: #EAEDED;">
-<div th:insert="fragments/header :: header"/>
+<!--<div th:insert="fragments/header :: header"/>-->
+
+<div id="nav">
+    <!--    <script type="text/javascript">-->
+    <!--        $(document).ready(function() {-->
+    <!--            $('#serviceIds').multiselect({-->
+    <!--                includeSelectAllOption: true,-->
+    <!--                nonSelectedText: 'Services'-->
+    <!--            });-->
+    <!--        });-->
+    <!--    </script>-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <a class="navbar-brand" href="/">Streams</a>
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/shows">Shows</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/movies">Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/persons">People</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 <div th:with="show=${movie}">
 
@@ -11,10 +49,10 @@
         <p class="lead" th:text="${show.getMedia().getDescription()}"> Description </p>
         <hr class="my-4">
         <h6 class="text-muted" th:text="@{${show.getMedia().getGenre()} + ', Release Date: ' + ${show.getMedia().getReleaseDate()} }"> Genre, Release Date </h6>
-        <p th:if="${show.getDirectors().size()} > 0" th:with="director=${show.getDirectors().get(0)}" th:text="@{ 'Director: ' + ${director.getFirstName()} + ' ' + ${director.getLastName()} }"> Director </p>
+        <p th:if="${show.getDirectors().size()} > 0" th:with="director=${show.getDirectors().get(0)}" th:text="@{ 'Director: ' + ${director.getStageName()} }"> Director </p>
         <span th:if="${show.getActors().size()} > 0" th:each="person, iStat : ${show.getActors()}">
-            <span th:unless="${iStat.index > 0}" th:text="'Cast List: ' + ${person.getFirstName()} + ' ' + ${person.getLastName()}" style="display:inline-block;"/>
-            <span th:if="${iStat.index > 0}" th:text="', ' + ${person.getFirstName()} + ' ' + ${person.getLastName()}" style="display:inline-block;"/>
+            <span th:unless="${iStat.index > 0}" th:text="'Cast List: ' + ${person.getStageName()}" style="display:inline-block;"/>
+            <span th:if="${iStat.index > 0}" th:text="', ' + ${person.getStageName()}" style="display:inline-block;"/>
         </span>
         <div class="mt-3">
             <b>Runtime: </b>
