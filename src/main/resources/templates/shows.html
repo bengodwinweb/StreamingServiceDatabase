@@ -7,8 +7,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#serviceIds').multiselect({
-                includeSelectAllOption: true,
-                nonSelectedText: 'Services'
+                nonSelectedText: 'All Services'
             });
         });
     </script>
@@ -86,30 +85,6 @@
             </div>
         </div>
     </div>
-        <!--    </div>-->
-
-<!--    <div>-->
-<!--        <table>-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th>Name</th>-->
-<!--                <th>Genre</th>-->
-<!--                <th>Release Date</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr th:if="${shows.empty}">-->
-<!--                <td colspan="3">No shows found</td>-->
-<!--            </tr>-->
-<!--            <tr th:each="show : ${shows}">-->
-<!--                <td><a th:text="${show.getName()}" th:href="@{'/show?id=' + ${show.getId()}}"> Name </a></td>-->
-<!--                <td><span th:text="${show.getGenre()}"> Genre </span></td>-->
-<!--                <td><span th:text="${show.getReleaseDate()}"> Release Date </span></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-
-<!--    </div>-->
 </div>
 
 <div th:insert="fragments/scripts :: scripts"/>
