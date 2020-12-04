@@ -51,7 +51,7 @@ public class PersonsController {
         List<Person> list = mediaId.isPresent() ? dao.getAllFromMedia(mediaId.get()) : dao.getAll();
         if (search.isPresent()) {
             String[] queryStrings = StringUtil.normalizeStringForQuery(search.get()).split(" ");
-            list = list.stream().filter(x -> Arrays.stream(queryStrings).anyMatch(y -> x.fullName().contains(y))).collect(Collectors.toList());
+            list = list.stream().filter(x -> Arrays.stream(queryStrings).allMatch(y -> x.fullName().toLowerCase().contains(y) || x.getStageName().toLowerCase().contains(y))).collect(Collectors.toList());
         }
 
         model.addAttribute("persons", list);
